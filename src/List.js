@@ -1,47 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"
+import Bloglist from "./Bloglist";
 
 
 
 const List = () => {
-    const handleCclick = ()=>{
-        console.log('Salut d\'ici debut mars je vais signé un contrat de minimum 1.000.000 fcfa par mois');
-    };
 
-    const handleClicAgain = (name, event) => {
-        console.log(`Salut, ${name}`, event.target);
+    const [blogs, setBlog] = useState([
+        {
+            id: 1,
+            title : "React.",
+            body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis modi quidem veniam dolores consectetur deleniti non labore odit quam eum.",
+            author: "Duplex",
+            date: "02/01/2021"
+        },
+        {
+            id: 2,
+            title : "Django.",
+            body: "Amet consectetur adipisicing elit. Quis modi quidem veniam dolores consectetur deleniti non labore odit quam eum.",
+            author: "Alpha",
+            date: "02/01/2021"
+        },
+        {
+            id: 3,
+            title : "Laravel.",
+            body: "Amet consectetur adipisicing elit. Quis modi quidem veniam dolores consectetur deleniti non labore odit quam eum.",
+            author: "Alpha",
+            date: "02/01/2021"
+        },
+        {
+            id: 4,
+            title : "React Native.",
+            body: "Amet consectetur adipisicing elit. Quis modi quidem veniam dolores consectetur deleniti non labore odit quam eum.",
+            author: "Alpha",
+            date: "02/01/2021"
+        },
+        {
+            id: 5,
+            title : "Flask.",
+            body: "Amet consectetur adipisicing elit. Quis modi quidem veniam dolores consectetur deleniti non labore odit quam eum.",
+            author: "Alpha",
+            date: "02/01/2021"
+        }
+    ])
+
+    const [name, setName] = useState('Ibrahima');
+
+    const HandleDelete = (id)=>{
+       const newBlog = blogs.filter( (blog) => blog.id !== id );
+       setBlog(newBlog);
     }
 
-    const clickTest = (name)=>{
-        console.log(`Me voici M. ${name}`);
-    };
+    useEffect( ()=>{
+        console.log("on m'a appelé...");
+        console.log(blogs);
+    }, [name, HandleDelete]);
 
-    // changer les variable svt nom et age avec les Hook(useState)
-    const [nom, setNom] = useState('Duplex');
-    const [age, setAge] = useState(25);
-    const EventHandle = ()=>{
-        setNom('Alpha');
-        setAge(27);
-    }
-
-    const [diplome, setDiplome] = useState(['informatique ', 'infographie']);
-    const diplomeHandle = () => {
-        setDiplome(['Reseaux Telecommunication ', ' Multimedia'])
-    };
-    /*
-        quand on appelle la fonction dans le template,
-        On ne met les parenthese. par ce que si on les met
-        react appelle la foncton sans attendre l'evenement.
-    */
     return (
-        <div>
-            <p>Bienvenue dans notre page...</p>
-            <p>Je m'appellle <b>{nom}</b> et mon age est <b>{age}</b></p>
-            <p>Et je suis diplomé en <b>{diplome}</b></p>
-            <button onClick={handleCclick}>Clicker moi</button>
-            <button onClick={(e)=>handleClicAgain('Duplex', e)}>Click Again</button>
-            <button onClick={()=>{clickTest('Alpha')}}>click test</button>
-            <button onClick={EventHandle}>Event</button>
-            <button onClick={diplomeHandle}>Diplôme</button>
+        <div className="list">
+            <Bloglist blogs_1={blogs} titre={"Liste des Articles"} HandleDelete={HandleDelete}></Bloglist>
+            <br/>
+            <button onClick={()=>setName('Amadou')}>Name Change</button>
+            <h5>{name}</h5>
         </div>
     );
 }
