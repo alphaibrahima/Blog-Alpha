@@ -7,9 +7,12 @@ const useRecovery = (url) => {
 
 
     useEffect( () =>{
+        // 1- pour regler l'erreur "memory leak in your application."
+        const abortConst = new AbortController();
+
         setTimeout( ()=> {
 
-            fetch(url)
+            fetch(url, { signal: abortConst.signal })
             .then( (response) => {
                 if(!response.ok){
                     throw Error ("Desolé une erreur est survenue dans le serveur..")
@@ -21,11 +24,21 @@ const useRecovery = (url) => {
                 setIsLoading(false)
             })
             .catch( (err) =>{
-                console.log(err.message);
-                setError(err.message)
-                setIsLoading(false)
+                // 3- pour regler l'erreur "memory leak in your application."
+                if(err.name === "AbortError")
+                {
+                    console.log("fetch a ete stoppé..");
+                }
+                else
+                {
+                    setError(err.message)
+                    setIsLoading(false)
+                }
+
             })
         }, 2000)
+        // 2- pour regler l'erreur "memory leak in your application."
+        return () => abortConst.abort()
 
     }, [url])
 
