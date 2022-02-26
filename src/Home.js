@@ -1,27 +1,22 @@
 import { useState, useEffect } from "react";
 import Bloglist from "./Bloglist";
+import useRecovery from "./useRecovery";
 
 
 const Home = () => {
 
-    const [blogs, setBlog] = useState(null);
-    useEffect( () =>{
-        fetch('http://localhost:8000/blogs')
-            .then( (response) => {
-                return response.json();
-            })
-            .then( (data) => {
-                setBlog(data);
-            })
-    }, [])
+    const {data : blogs, error, isLoading} = useRecovery('http://localhost:8000/blogs')
 
 
 
     return (
         <div className="home">
-            <Bloglist blogs_1 = {blogs} titre = {'Liste des articles'}/>
+            {error && <div> {error} </div>}
+            {isLoading && <div>En Cours de chargement...</div>}
+            {/* <!-- {blogs &&} resout le probleme de mapping--> */}
+            { blogs && <Bloglist blogs_1 = {blogs} titre = {'Liste des articles'}/>}
         </div>
     );
 }
- 
+
 export default Home;
