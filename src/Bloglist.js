@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Bloglist = ({blogs_1, titre}) => {
 
     
@@ -9,7 +11,7 @@ const Bloglist = ({blogs_1, titre}) => {
                 // blogs_1?.map( (blog) =>( peut resoudre le probleme de mapping
                 blogs_1.map( (blog) =>(
                     <div className="blog" key={blog.id}>
-                        <a href="" className="blog-titre">{blog.title}</a>
+                        <Link to={`/blog/${blog.id}`} className="blog-titre">{blog.title}</Link>
                         <small className="blog-publication-date"> {blog.date}</small>
                         <p className="blog-author">{blog.author}</p>
                     </div>
