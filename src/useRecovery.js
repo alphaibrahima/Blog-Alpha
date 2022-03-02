@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 
 
 const useRecovery = (url) => {
@@ -6,6 +8,7 @@ const useRecovery = (url) => {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null)
+    const history = useHistory();
 
 
     useEffect( () =>{
@@ -17,7 +20,7 @@ const useRecovery = (url) => {
             fetch(url, { signal: abortConst.signal })
             .then( (response) => {
                 if(!response.ok){
-                    throw Error ("Desolé une erreur est survenue dans le serveur..")
+                    throw Error ("Desolé une erreur est survenue dans le serveur -- veillez re-verifiez l'adresse url..")
                 }
                 return response.json();
             })

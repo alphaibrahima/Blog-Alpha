@@ -5,7 +5,7 @@ import useRecovery from "./useRecovery";
 
 const Home = () => {
 
-    const {data : blogs, error, isLoading} = useRecovery('http://localhost:8000/blogs')
+    const {data : blogs, error, isLoading} = useRecovery('http://localhost:8000/blogs?_sort=id&_order=desc')
 
 
 

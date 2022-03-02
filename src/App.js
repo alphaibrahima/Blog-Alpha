@@ -4,6 +4,7 @@ import Home from './Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Ajouter from './Ajouter';
 import BlogDetail from './BlogDetail';
+import NotFound from './NotFound';
 
 function App() {
   // la partie logique
@@ -27,6 +28,11 @@ function App() {
             </Route>
             <Route path={'/blog/:id'}>
               <BlogDetail />
+            </Route>
+            {/* gestion de de l'erreur 404 */}
+            {/* assure-vous que cette route soit en dernier lieu */}
+            <Route path={'*'}>
+              <NotFound />
             </Route>
           </Switch>
         </div>
